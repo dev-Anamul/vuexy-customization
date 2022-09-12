@@ -22,6 +22,7 @@ import {
   Trash,
 } from "react-feather";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const renderClient = (row) => {
   console.log(row);
@@ -107,6 +108,7 @@ export const columns = [
     cell: (row) => {
       const [confirmModal, setconfirmModal] = useState(false);
       const [editModal, setEditModal] = useState(false);
+      const userRoles = useSelector((state) => state.userRoles.data);
       return (
         <div className="d-flex">
           <button
@@ -134,6 +136,7 @@ export const columns = [
             open={editModal}
             setOpen={setEditModal}
             selectedData={row}
+            roles={userRoles}
           />
         </div>
       );

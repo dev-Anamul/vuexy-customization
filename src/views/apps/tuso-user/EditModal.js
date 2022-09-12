@@ -31,7 +31,7 @@ import {
 
 // ** Third Party Components
 
-const AddPorvinceModal = ({ open, setOpen, selectedData }) => {
+const AddPorvinceModal = ({ open, setOpen, selectedData, roles }) => {
   const dispatch = useDispatch();
   // ** Hooks for form
   const {
@@ -51,6 +51,7 @@ const AddPorvinceModal = ({ open, setOpen, selectedData }) => {
         username: data.username,
         password: data.password,
         cellphone: data.cellphone,
+        roleID: data.roleID,
         // photoPath: data.photoPath,
       };
 
@@ -201,24 +202,32 @@ const AddPorvinceModal = ({ open, setOpen, selectedData }) => {
                     )}
                   />
                 </div>
-                {/* <div className="mb-1">
-                  <Label className="form-label" for="photoPath">
+                <div className="mb-1">
+                  <Label className="form-label" for="roleID">
                     Photo Path
                   </Label>
                   <Controller
-                    defaultValue={selectedData.photoPath}
+                    defaultValue={selectedData.roleID}
                     control={control}
-                    id="photoPath"
-                    name="photoPath"
+                    id="roleID"
+                    name="roleID"
                     render={({ field }) => (
                       <Input
+                        type="select"
                         placeholder="Enter Your Photo Path"
                         invalid={errors.photoPath && true}
                         {...field}
-                      />
+                      >
+                        {roles &&
+                          roles.map((role) => (
+                            <option key={role.oid} value={role.oid}>
+                              {role.roleName}
+                            </option>
+                          ))}
+                      </Input>
                     )}
                   />
-                </div> */}
+                </div>
                 <div className="d-flex">
                   <Button className="me-1" color="warning" type="submit">
                     Submit

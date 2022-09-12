@@ -45,7 +45,6 @@ const AddCountryModal = ({ open, setOpen }) => {
   const onSubmit = (data) => {
     if (Object.values(data).every((field) => field.length > 0)) {
       const newIncident = {
-        isDeleted: false,
         countryName: data.countryName,
       };
 
@@ -96,7 +95,7 @@ const AddCountryModal = ({ open, setOpen }) => {
                     name="countryName"
                     render={({ field }) => (
                       <Input
-                        placeholder="Incident Title"
+                        placeholder="Enter Country Name"
                         invalid={errors.countryName && true}
                         {...field}
                       />

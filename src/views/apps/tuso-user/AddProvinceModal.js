@@ -31,7 +31,7 @@ import {
 
 // ** Third Party Components
 
-const AddPorvinceModal = ({ open, setOpen }) => {
+const AddPorvinceModal = ({ open, setOpen, roles }) => {
   const dispatch = useDispatch();
   // ** Hooks for form
   const {
@@ -51,12 +51,9 @@ const AddPorvinceModal = ({ open, setOpen }) => {
         username: data.username,
         password: data.password,
         cellphone: data.cellphone,
-        photoPath: data.photoPath,
+        roleID: data.roleID,
         countryCode: "+88",
-        isAccountActive: true,
-        roleID: 1,
-        facilityID: 2,
-        isDeleted: false,
+        photoPath: "photo.jpg",
       };
 
       // ** Dispatch action to add new province
@@ -72,7 +69,6 @@ const AddPorvinceModal = ({ open, setOpen }) => {
         username: "",
         password: "",
         cellphone: "",
-        photoPath: "",
       });
 
       // ** close the modal
@@ -96,7 +92,6 @@ const AddPorvinceModal = ({ open, setOpen }) => {
       username: "",
       password: "",
       cellphone: "",
-      photoPath: "",
     });
   };
 
@@ -108,7 +103,7 @@ const AddPorvinceModal = ({ open, setOpen }) => {
         className="modal-dialog-centered"
       >
         <ModalHeader
-          className="bg-transparent"
+          className="bg-transparent py-0"
           toggle={() => setOpen(!open)}
         ></ModalHeader>
         {/* <ModalBody className="px-sm-5 mx-50 pb"> */}
@@ -226,20 +221,28 @@ const AddPorvinceModal = ({ open, setOpen }) => {
                   />
                 </div>
                 <div className="mb-1">
-                  <Label className="form-label" for="photoPath">
-                    Photo Path
+                  <Label className="form-label" for="roleID">
+                    Role
                   </Label>
                   <Controller
                     defaultValue=""
                     control={control}
-                    id="photoPath"
-                    name="photoPath"
+                    id="roleID"
+                    name="roleID"
                     render={({ field }) => (
                       <Input
                         placeholder="Enter Your Photo Path"
-                        invalid={errors.photoPath && true}
+                        type="select"
+                        invalid={errors.roleID && true}
                         {...field}
-                      />
+                      >
+                        {roles &&
+                          roles.map((role) => (
+                            <option key={role.oid} value={role.oid}>
+                              {role.roleName}
+                            </option>
+                          ))}
+                      </Input>
                     )}
                   />
                 </div>

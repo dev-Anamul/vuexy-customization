@@ -48,7 +48,7 @@ const BootstrapCheckbox = forwardRef((props, ref) => (
   </div>
 ));
 
-const DataTableWithButtons = ({ data }) => {
+const DataTableWithButtons = ({ data, roles }) => {
   // ** States
   const [modal, setModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
@@ -262,7 +262,7 @@ const DataTableWithButtons = ({ data }) => {
           />
         </div>
       </Card>
-      <AddPorvinceModal open={modal} setOpen={setModal} />
+      <AddPorvinceModal open={modal} setOpen={setModal} roles={roles} />
     </Fragment>
   );
 };

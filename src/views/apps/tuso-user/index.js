@@ -3,6 +3,7 @@
 // import { useContext } from "react";
 import { useEffect } from "react";
 import { getUserData } from "./store";
+import { getRolesData } from "../tuso-roles/store";
 import { useSelector, useDispatch } from "react-redux";
 
 // ** Reactstrap Imports
@@ -18,17 +19,22 @@ import DataTableWithButtons from "./DataTableWithButton";
 function ProvincesInformation() {
   const dispatch = useDispatch();
   const usersData = useSelector((state) => state.userAccounts.data);
+  const rolesData = useSelector((state) => state.userRoles.data);
 
   useEffect(() => {
+    // ** dispatch user data
     dispatch(getUserData());
-  }, [dispatch, getUserData]);
+
+    // ** dispatch roles data
+    dispatch(getRolesData());
+  }, [dispatch, getUserData, getRolesData]);
 
   console.log(usersData);
 
   return (
     <Row>
       <Col sm="12">
-        <DataTableWithButtons data={usersData} />
+        <DataTableWithButtons data={usersData} roles={rolesData}/>
       </Col>
     </Row>
   );
