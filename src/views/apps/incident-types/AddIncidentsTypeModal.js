@@ -1,99 +1,158 @@
+/* eslint-disable comma-dangle */
+/* eslint-disable semi */
 // ** React Imports
-import { useState } from 'react'
+import { Fragment } from "react";
+import { addIncidentTypeData } from "./store";
+import { useDispatch } from "react-redux";
 
-// ** Third Party Components
-import Flatpickr from 'react-flatpickr'
-import { User, Briefcase, Mail, Calendar, DollarSign, X } from 'react-feather'
+// ** form dependencies
+import { useForm, Controller } from "react-hook-form";
 
 // ** Reactstrap Imports
-import { Modal, Input, Label, Button, ModalHeader, ModalBody, InputGroup, InputGroupText } from 'reactstrap'
+import {
+  Row,
+  Col,
+  Card,
+  Form,
+  CardHeader,
+  Modal,
+  Label,
+  Input,
+  Button,
+  CardBody,
+  CardText,
+  CardTitle,
+  ModalBody,
+  InputGroup,
+  ModalHeader,
+  FormFeedback,
+  InputGroupText,
+} from "reactstrap";
 
-// ** Styles
-import '@styles/react/libs/flatpickr/flatpickr.scss'
+// ** Third Party Components
 
-const AddNewModal = ({ open, handleModal }) => {
-  // ** State
-  const [Picker, setPicker] = useState(new Date())
+const AddFacilityModal = ({ open, setOpen }) => {
+  const dispatch = useDispatch();
+  // ** Hooks for form
+  const {
+    reset,
+    control,
+    setError,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  // ** Custom close btn
-  const CloseBtn = <X className='cursor-pointer' size={15} onClick={handleModal} />
+  const onSubmit = (data) => {
+    if (Object.values(data).every((field) => field.length > 0)) {
+      const newIncidentType = {
+        isDeleted: false,
+        incidentTypeName: data.incidentTypeName,
+        description: data.description,
+        parentID: 1,
+      };
+
+      // ** Dispatch action to add new incident type
+      dispatch(addIncidentTypeData(newIncidentType));
+
+      // ** reset the form
+      reset({
+        incidentTypeName: "",
+        description: "",
+      });
+
+      // ** close the modal
+      setOpen(false);
+    } else {
+      for (const key in data) {
+        if (data[key].length === 0) {
+          setError(key, {
+            type: "manual",
+          });
+        }
+      }
+    }
+  };
+
+  const handleReset = () => {
+    reset({
+      incidentTypeName: "",
+      description: "",
+    });
+  };
 
   return (
-    <Modal
-      isOpen={open}
-      toggle={handleModal}
-      className='sidebar-sm'
-      modalClassName='modal-slide-in'
-      contentClassName='pt-0'
-    >
-      <ModalHeader className='mb-1' toggle={handleModal} close={CloseBtn} tag='div'>
-        <h5 className='modal-title'>New Record</h5>
-      </ModalHeader>
-      <ModalBody className='flex-grow-1'>
-        <div className='mb-1'>
-          <Label className='form-label' for='full-name'>
-            Full Name
-          </Label>
-          <InputGroup>
-            <InputGroupText>
-              <User size={15} />
-            </InputGroupText>
-            <Input id='full-name' placeholder='Bruce Wayne' />
-          </InputGroup>
-        </div>
-        <div className='mb-1'>
-          <Label className='form-label' for='post'>
-            Post
-          </Label>
-          <InputGroup>
-            <InputGroupText>
-              <Briefcase size={15} />
-            </InputGroupText>
-            <Input id='post' placeholder='Web Developer' />
-          </InputGroup>
-        </div>
-        <div className='mb-1'>
-          <Label className='form-label' for='email'>
-            Email
-          </Label>
-          <InputGroup>
-            <InputGroupText>
-              <Mail size={15} />
-            </InputGroupText>
-            <Input type='email' id='email' placeholder='brucewayne@email.com' />
-          </InputGroup>
-        </div>
-        <div className='mb-1'>
-          <Label className='form-label' for='joining-date'>
-            Joining Date
-          </Label>
-          <InputGroup>
-            <InputGroupText>
-              <Calendar size={15} />
-            </InputGroupText>
-            <Flatpickr className='form-control' id='joining-date' value={Picker} onChange={date => setPicker(date)} />
-          </InputGroup>
-        </div>
-        <div className='mb-1'>
-          <Label className='form-label' for='salary'>
-            Salary
-          </Label>
-          <InputGroup>
-            <InputGroupText>
-              <DollarSign size={15} />
-            </InputGroupText>
-            <Input type='number' id='salary' />
-          </InputGroup>
-        </div>
-        <Button className='me-1' color='primary' onClick={handleModal}>
-          Submit
-        </Button>
-        <Button color='secondary' onClick={handleModal} outline>
-          Cancel
-        </Button>
-      </ModalBody>
-    </Modal>
-  )
-}
+    <Fragment>
+      <Modal
+        isOpen={open}
+        toggle={() => setOpen(!open)}
+        className="modal-dialog-centered"
+      >
+        <ModalHeader
+          className="bg-transparent"
+          toggle={() => setOpen(!open)}
+        ></ModalHeader>
+        {/* <ModalBody className="px-sm-5 mx-50 pb"> */}
+        <ModalBody className="">
+          <h1 className="text-center mb-1">Add New Incident Type</h1>
+          <Card>
+            <CardBody>
+              <Form onSubmit={handleSubmit(onSubmit)}>
+                <div className="mb-1">
+                  <Label className="form-label" for="incidentTypeName">
+                    Incident Type Name
+                  </Label>
+                  <Controller
+                    defaultValue=""
+                    control={control}
+                    id="incidentTypeName"
+                    name="incidentTypeName"
+                    render={({ field }) => (
+                      <Input
+                        placeholder="Enter Facility Name"
+                        invalid={errors.incidentTypeName && true}
+                        {...field}
+                      />
+                    )}
+                  />
+                </div>
+                <div className="mb-1">
+                  <Label className="form-label" for="description">
+                    Description
+                  </Label>
+                  <Controller
+                    defaultValue=""
+                    control={control}
+                    id="description"
+                    name="description"
+                    render={({ field }) => (
+                      <Input
+                        placeholder="Description"
+                        invalid={errors.description && true}
+                        {...field}
+                      />
+                    )}
+                  />
+                </div>
+                <div className="d-flex">
+                  <Button className="me-1" color="warning" type="submit">
+                    Submit
+                  </Button>
+                  <Button
+                    outline
+                    color="secondary"
+                    type="reset"
+                    onClick={handleReset}
+                  >
+                    Reset
+                  </Button>
+                </div>
+              </Form>
+            </CardBody>
+          </Card>
+        </ModalBody>
+      </Modal>
+    </Fragment>
+  );
+};
 
-export default AddNewModal
+export default AddFacilityModal;

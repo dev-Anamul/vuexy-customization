@@ -38,10 +38,6 @@
   .horizontal-menu-wrapper {
     .header-navbar {
       min-height: $horizontal-menu-height;
-      // ! custom background color
-      .container-fluid {
-        background-color: $warning !important;
-      }
     }
   }
 
@@ -101,8 +97,9 @@
           align-items: center;
           margin-right: 0;
           font-size: inherit;
+          // ! custom css added fro logo
           .brand-logo img {
-            max-width: 36px;
+            max-width: 100px;
           }
 
           // Brand Text Scss
@@ -257,8 +254,8 @@
           > a {
             background: linear-gradient(
               118deg,
-              rgba($primary, 1),
-              rgba($primary, 0.7)
+              rgba($warning, 1),
+              rgba($warning, 0.7)
             );
             box-shadow: 0px 0px 6px 1px rgba($primary, 0.6);
             color: $white;

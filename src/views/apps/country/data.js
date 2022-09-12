@@ -2,6 +2,7 @@
 /* eslint-disable semi */
 import { useState } from "react";
 import ConfirmationModal from "./ConfirmationModal";
+import EditCountryModal from "./EditModal";
 import {
   Badge,
   UncontrolledDropdown,
@@ -66,16 +67,9 @@ export const columns = [
     allowOverflow: true,
     cell: (row) => {
       const [confirmModal, setconfirmModal] = useState(false);
+      const [editModal, setEditModal] = useState(false);
       return (
         <div className="d-flex">
-          <button
-            className="border-0 outline-none bg-transparent text-info"
-            onClick={() => {
-              console.log("View");
-            }}
-          >
-            <Eye size={18} />
-          </button>
           <button
             className="border-0 outline-none bg-transparent p-0 text-danger"
             onClick={() => {
@@ -87,7 +81,7 @@ export const columns = [
           <button
             className="border-0 outline-none bg-transparent text-warning fw-bold"
             onClick={() => {
-              console.log("Edit");
+              setEditModal(true);
             }}
           >
             <Edit size={17} />
@@ -96,6 +90,11 @@ export const columns = [
             open={confirmModal}
             setOpen={setconfirmModal}
             id={row.oid}
+          />
+          <EditCountryModal
+            open={editModal}
+            setOpen={setEditModal}
+            selectedData={row}
           />
         </div>
       );

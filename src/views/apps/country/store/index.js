@@ -25,6 +25,17 @@ export const addCountryData = createAsyncThunk(
   }
 );
 
+export const updateCountryData = createAsyncThunk(
+  "countryData/updateCountryData",
+  async (data, { dispatch }) => {
+    await axios.put(
+      `https://staging-tuso.api.arcapps.org/tuso-api/country/${data.oid}`,
+      data
+    );
+    await dispatch(getCountryData());
+  }
+);
+
 export const deleteCountry = createAsyncThunk(
   "countryData/deleteCountry",
   async (id, { dispatch }) => {

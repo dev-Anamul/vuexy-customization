@@ -25,6 +25,17 @@ export const addRolesData = createAsyncThunk(
   }
 );
 
+export const updateRolesData = createAsyncThunk(
+  "roleData/updateRolesData",
+  async (data, { dispatch }) => {
+    await axios.put(
+      `https://staging-tuso.api.arcapps.org/tuso-api/user-role/${data.oid}`,
+      data
+    );
+    await dispatch(getRolesData());
+  }
+);
+
 export const deleteRole = createAsyncThunk(
   "roleData/deleteRole",
   async (id, { dispatch }) => {

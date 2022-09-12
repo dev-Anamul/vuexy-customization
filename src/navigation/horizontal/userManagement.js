@@ -26,7 +26,7 @@ export default [
         id: "userList",
         title: "User List",
         icon: <Eye />,
-        navLink: "/apps/user/list",
+        navLink: "/apps/user/tuso-user",
       },
       {
         id: "userGroup",

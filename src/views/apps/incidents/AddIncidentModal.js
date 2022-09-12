@@ -45,16 +45,9 @@ const AddCardExample = ({ open, setOpen }) => {
   const onSubmit = (data) => {
     if (Object.values(data).every((field) => field.length > 0)) {
       const newIncident = {
-        isDeleted: false,
-        dateReported: "2022-09-05",
         title: data.title,
         description: data.description,
-        dueDate: "2022-09-10",
-        dateResolved: "2022-09-06",
-        userAccountID: "a1915eb6-576e-4aad-bb78-5e4330d46b54",
-        incidentTypeID: 1,
       };
-
       dispatch(addIncidentData(newIncident));
       setOpen(false);
     } else {

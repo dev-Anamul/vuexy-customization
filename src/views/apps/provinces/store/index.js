@@ -25,6 +25,17 @@ export const addProvinceData = createAsyncThunk(
   }
 );
 
+export const updateProvinceData = createAsyncThunk(
+  "provinceData/updateProvinceData",
+  async (data, { dispatch }) => {
+    await axios.put(
+      `https://staging-tuso.api.arcapps.org/tuso-api/province/${data.oid}`,
+      data
+    );
+    await dispatch(getProvinceData());
+  }
+);
+
 export const deleteProvince = createAsyncThunk(
   "provinceData/deleteProvince",
   async (id, { dispatch }) => {

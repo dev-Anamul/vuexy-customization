@@ -1,77 +1,87 @@
-import { Badge, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
-import { MoreVertical, Edit, FileText, Archive, Trash } from 'react-feather'
+/* eslint-disable semi */
+/* eslint-disable comma-dangle */
+import {
+  Badge,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
+import { MoreVertical, Edit, FileText, Archive, Trash } from "react-feather";
 export const columns = [
-    {
-      name: 'Country Name',
-      minWidth: '250px',
-      sortable: row => row.countryName,
-      selector: row => row.countryName
+  {
+    name: "Preview ID",
+    minWidth: "250px",
+    sortable: (row) => row.previewID,
+    selector: (row) => row.previewID,
+  },
+  {
+    name: "Incident Type ",
+    sortable: true,
+    minWidth: "250px",
+    selector: (row) => row.incidentTypes,
+  },
+  {
+    name: "Created Date",
+    sortable: true,
+    minWidth: "150px",
+    selector: (row) => row.dateCreated,
+  },
+
+  {
+    name: "Created By",
+    sortable: true,
+    minWidth: "100px",
+    selector: (row) => row.createdBy,
+  },
+  {
+    name: "Modified By",
+    minWidth: "150px",
+    sortable: (row) => row.modifiedBy,
+    cell: (row) => {
+      return (
+        <Badge color={"light-primary"} pill>
+          {row.modifiedBy}
+        </Badge>
+      );
     },
-    {
-      name: 'Country ID',
-      sortable: true,
-      minWidth: '250px',
-      selector: row => row.countryID
+  },
+  {
+    name: "Actions",
+    allowOverflow: true,
+    cell: () => {
+      const [confirmModal, setconfirmModal] = useState(false);
+      const [editModal, setEditModal] = useState(false);
+      return (
+        <div className="d-flex">
+          <button
+            className="border-0 outline-none bg-transparent p-0 text-danger"
+            onClick={() => {
+              setconfirmModal(true);
+            }}
+          >
+            <Trash size={18} />
+          </button>
+          <button
+            className="border-0 outline-none bg-transparent text-warning fw-bold"
+            onClick={() => {
+              setEditModal(true);
+            }}
+          >
+            <Edit size={17} />
+          </button>
+          <ConfirmationModal
+            open={confirmModal}
+            setOpen={setconfirmModal}
+            id={row.oid}
+          />
+          <EditFacilityModal
+            open={editModal}
+            setOpen={setEditModal}
+            selectedData={row}
+          />
+        </div>
+      );
     },
-    {
-      name: 'Created Date',
-      sortable: true,
-      minWidth: '150px',
-      selector: row => row.dateCreated
-    },
-  
-    {
-      name: 'Provinces',
-      sortable: true,
-      minWidth: '150px',
-      selector: row => row.provinces
-    },
-    {
-      name: 'Created By',
-      sortable: true,
-      minWidth: '100px',
-      selector: row => row.createdBy
-    },
-    {
-      name: 'Modified By',
-      minWidth: '150px',
-      sortable: row => row.status.modifiedBy,
-      cell: row => {
-        return (
-          <Badge color={'light-primary'} pill>
-            {row.modifiedBy}
-          </Badge>
-        )
-      }
-    },
-    {
-      name: 'Actions',
-      allowOverflow: true,
-      cell: () => {
-        return (
-          <div className='d-flex'>
-            <UncontrolledDropdown>
-              <DropdownToggle className='pe-1' tag='span'>
-                <MoreVertical size={15} />
-              </DropdownToggle>
-              <DropdownMenu end>
-                <DropdownItem tag='a' href='/' className='w-100' onClick={e => e.preventDefault()}>
-                  <FileText size={15} />
-                  <span className='align-middle ms-50'>Details</span>
-                </DropdownItem>
-                <DropdownItem tag='a' href='/' className='w-100' onClick={e => e.preventDefault()}>
-                  <Archive size={15} />
-                  <span className='align-middle ms-50'>Archive</span>
-                </DropdownItem>
-                <DropdownItem tag='a' href='/' className='w-100' onClick={e => e.preventDefault()}>
-                  <Trash size={15} />
-                  <span className='align-middle ms-50'>Delete</span>
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
-            <Edit size={15} />
-          </div>
-        )
-      }
-    }
-  ]
+  },
+];

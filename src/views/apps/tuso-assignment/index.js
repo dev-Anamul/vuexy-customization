@@ -2,7 +2,7 @@
 // ** React Imports
 // import { useContext } from "react";
 import { useEffect } from "react";
-import { getCountryData } from "./store";
+import { getAssignmentData } from "./store";
 import { useSelector, useDispatch } from "react-redux";
 
 // ** Reactstrap Imports
@@ -17,18 +17,18 @@ import DataTableWithButtons from "./DataTableWithButton";
 
 function CountryInformation() {
   const dispatch = useDispatch();
-  const countryData = useSelector((state) => state.countries.data);
+  const countryData = useSelector((state) => state.assignment.data);
 
   useEffect(() => {
-    dispatch(getCountryData());
-  }, [dispatch, getCountryData]);
+    dispatch(getAssignmentData());
+  }, [dispatch, getAssignmentData]);
 
   console.log(countryData);
 
   return (
     <Row>
       <Col sm="12">
-        <DataTableWithButtons  data={countryData} />
+        <DataTableWithButtons data={countryData} />
       </Col>
     </Row>
   );

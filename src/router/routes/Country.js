@@ -8,12 +8,20 @@ const Country = lazy(() => import("../../views/apps/country"));
 const Provinces = lazy(() => import("../../views/apps/provinces"));
 const District = lazy(() => import("../../views/apps/district"));
 const Facility = lazy(() => import("../../views/apps/facility"));
-import IncidentType from "../../views/apps/incident-types";
-import Incidents from "../../views/apps/incidents";
-import IncidentStatus from "../../views/apps/incidents-status";
-import TusoModule from "../../views/apps/tuso-module";
-import TusoRoles from "../../views/apps/tuso-roles";
-import TusoPermissions from "../../views/apps/tuso-permissions";
+const TusoUser = lazy(() => import("../../views/apps/tuso-user"));
+// import Incidents from "../../views/apps/incidents";
+// import IncidentType from "../../views/apps/incident-types";
+// import IncidentStatus from "../../views/apps/incidents-status";
+// import TusoRoles from "../../views/apps/tuso-roles";
+// import TusoModule from "../../views/apps/tuso-module";
+// import TusoPermissions from "../../views/apps/tuso-permissions";
+const IncidentType = lazy(() => import("../../views/apps/incident-types"));
+const Incidents = lazy(() => import("../../views/apps/incidents"));
+const IncidentStatus = lazy(() => import("../../views/apps/incidents-status"));
+const TusoModule = lazy(() => import("../../views/apps/tuso-module"));
+const TusoRoles = lazy(() => import("../../views/apps/tuso-roles"));
+const TusoPermissions = lazy(() => import("../../views/apps/tuso-permissions"));
+const Assignment = lazy(() => import("../../views/apps/tuso-assignment"));
 
 const CountryRoutes = [
   {
@@ -55,6 +63,14 @@ const CountryRoutes = [
   {
     path: "/apps/user/permissions",
     element: <TusoPermissions />,
+  },
+  {
+    path: "/apps/user/tuso-user",
+    element: <TusoUser />,
+  },
+  {
+    path: "/apps/assignment",
+    element: <Assignment />,
   },
 ];
 

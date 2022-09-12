@@ -35,6 +35,17 @@ export const deleteIncident = createAsyncThunk(
   }
 );
 
+export const updateIncidentData = createAsyncThunk(
+  "incidentsData/updateIncidentData",
+  async (data, { dispatch }) => {
+    await axios.put(
+      `https://staging-tuso.api.arcapps.org/tuso-api/incident/${data.oid}`,
+      data
+    );
+    await dispatch(getIncidentsData());
+  }
+);
+
 const initialState = {
   data: [],
 };

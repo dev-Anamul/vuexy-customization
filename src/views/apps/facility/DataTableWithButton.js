@@ -75,10 +75,7 @@ const DataTableWithButtons = ({ data }) => {
       updatedData = data.filter((item) => {
         const startsWith =
           item.facilityName.toLowerCase().startsWith(value.toLowerCase()) ||
-          item.facilityID
-            .toString()
-            .toLowerCase()
-            .startsWith(value.toLowerCase()) ||
+          item.oid.toString().toLowerCase().startsWith(value.toLowerCase()) ||
           item.email?.toLowerCase().startsWith(value.toLowerCase()) ||
           item.age?.toLowerCase().startsWith(value.toLowerCase()) ||
           item.salary?.toLowerCase().startsWith(value.toLowerCase()) ||
@@ -88,7 +85,7 @@ const DataTableWithButtons = ({ data }) => {
             .startsWith(value.toLowerCase());
 
         const includes =
-          item.countryName.toLowerCase().includes(value.toLowerCase()) ||
+          item.facilityName.toLowerCase().includes(value.toLowerCase()) ||
           item.post?.toLowerCase().includes(value.toLowerCase()) ||
           item.email?.toLowerCase().includes(value.toLowerCase()) ||
           item.age?.toLowerCase().includes(value.toLowerCase()) ||

@@ -25,6 +25,17 @@ export const addDistrictData = createAsyncThunk(
   }
 );
 
+export const updateDistrictData = createAsyncThunk(
+  "districtData/updateDistrictData",
+  async (data, { dispatch }) => {
+    await axios.put(
+      `https://staging-tuso.api.arcapps.org/tuso-api/district/${data.oid}`,
+      data
+    );
+    await dispatch(getDistrictData());
+  }
+);
+
 export const deleteDistrict = createAsyncThunk(
   "districtData/deleteDistrict",
   async (id, { dispatch }) => {

@@ -75,7 +75,7 @@ const DataTableWithButtons = ({ data }) => {
       updatedData = data.filter((item) => {
         const startsWith =
           item.countryName.toLowerCase().startsWith(value.toLowerCase()) ||
-          item.countryID
+          item.oid
             .toString()
             .toLowerCase()
             .startsWith(value.toLowerCase()) ||

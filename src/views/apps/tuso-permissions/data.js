@@ -19,7 +19,7 @@ export const columns = [
     name: "Permission ID",
     sortable: true,
     minWidth: "250px",
-    selector: (row) => row.permissionID,
+    selector: (row) => row.oid,
   },
   {
     name: "Created Date",
