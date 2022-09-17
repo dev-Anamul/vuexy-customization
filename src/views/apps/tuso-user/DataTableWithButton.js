@@ -5,7 +5,7 @@
 import { Fragment, useState, forwardRef } from "react";
 
 // ** Table Data & Columns
-import { columns } from "./data";
+// import { columns } from "./data";
 
 // ** Add New Modal Component
 
@@ -40,6 +40,7 @@ import {
   DropdownToggle,
   UncontrolledButtonDropdown,
 } from "reactstrap";
+import UserInfoCard from "./UserInfoCard";
 
 // ** Bootstrap Checkbox Component
 const BootstrapCheckbox = forwardRef((props, ref) => (
@@ -246,7 +247,7 @@ const DataTableWithButtons = ({ data, roles }) => {
             />
           </Col>
         </Row>
-        <div className="react-dataTable react-dataTable-selectable-rows">
+        {/* <div className="react-dataTable react-dataTable-selectable-rows">
           <DataTable
             noHeader
             pagination
@@ -260,7 +261,10 @@ const DataTableWithButtons = ({ data, roles }) => {
             // selectableRowsComponent={BootstrapCheckbox}
             data={searchValue.length ? filteredData : data}
           />
-        </div>
+        </div> */}
+        <Row className="px-3">
+          <Col>{data && data.map((item) => <UserInfoCard item={item} />)}</Col>
+        </Row>
       </Card>
       <AddPorvinceModal open={modal} setOpen={setModal} roles={roles} />
     </Fragment>

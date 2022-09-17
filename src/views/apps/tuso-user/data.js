@@ -26,7 +26,7 @@ import { useSelector } from "react-redux";
 
 const renderClient = (row) => {
   console.log(row);
-  if (!row.photoPath.length) {
+  if (!row.photoPath?.length) {
     return (
       <Avatar className="me-1" img={row.photoPath} width="32" height="32" />
     );
